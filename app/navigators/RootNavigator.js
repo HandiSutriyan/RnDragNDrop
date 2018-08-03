@@ -1,8 +1,8 @@
 import { StackNavigator } from 'react-navigation';
 
-import Home from '../contacts/pages/Home.js'
-import Picture from '../contacts/pages/Picture.js'
-import Font from '../contacts/pages/Font.js'
+import Home from '../design/pages/Home.js'
+import Picture from '../design/pages/Picture.js'
+import Font from '../design/pages/Font.js'
 
 const RootNavigator = StackNavigator({
   Home:{
