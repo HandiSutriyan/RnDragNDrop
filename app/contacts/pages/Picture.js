@@ -14,6 +14,7 @@ import {allPicture} from '../actions'
   this.state={
    menu_now:'',
    picture:'',
+   pict_styles:[],
    isSelected:false
   }
 }
@@ -68,8 +69,12 @@ import {allPicture} from '../actions'
                             min: 0.1,
                             max: 7,
                           }}
+                          onChange={(event, styles) => {
+                            this.setState({pict_styles:styles})
+                            console.log(this.state.pict_styles);
+                          }}
                         >
-                           <Image source = {require('./IMG_7430.jpg')} style={{height:300,width:200}}/>
+                           <Image source = {{uri:this.state.picture}} style={{height:300,width:200}}/>
                         </Gestures>
                         ):(
                            <Button bordered light success style={{width:'45%',height:'auto',marginTop:'25%'}}>
@@ -104,14 +109,16 @@ import {allPicture} from '../actions'
                         </View>
                     </View>
                     <View style={{height:'70%',backgroundColor:'gray',opacity:0.5,padding:10}}>
+                    <ScrollView horizontal>
                     {this.props.picture.pictures.map((item,i)=>{
-                      console.log(item.path)
+                      const path=item.path;
                       return(
-                          <TouchableHighlight onPress={()=>this.setState({isSelected:true,picture:'./IMG_7430.jpg'})} key={item.id}>
-                            <Image source={require('./IMG_7430.jpg')} style={{maxHeight:100,maxWidth:90}}/>
+                          <TouchableHighlight onPress={()=>this.setState({isSelected:true,picture:path})} key={item.id}>
+                            <Image source={require('./IMG_7430.jpg')} style={{maxHeight:100,maxWidth:90,marginRight:10}}/>
                           </TouchableHighlight>
                         )
                     })}
+                    </ScrollView>
                     </View>
                   </ImageBackground>
                 </View>

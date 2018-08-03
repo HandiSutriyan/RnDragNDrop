@@ -38,7 +38,7 @@ import {allPicture} from '../actions'
          </Button>
          </View>
          <View style={{flexDirection:'column',justifyContent:'center'}}>
-          <Text style={{color:'#075E54',fontSize:15,paddingLeft:5,fontWeight:'bold'}}> GAMBAR</Text>
+          <Text style={{color:'#075E54',fontSize:15,paddingLeft:5,fontWeight:'bold'}}> HURUF</Text>
           </View>
         </View>
         ),

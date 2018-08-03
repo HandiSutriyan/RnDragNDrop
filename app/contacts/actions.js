@@ -18,21 +18,15 @@ export function allMenu(){
 }
 export function allPicture(){
 	const picture = [
-		{id:1,path:"require('./IMG_7427.jpeg')"},
-		{id:2,path:"require('./IMG_7428.jpeg')"},
-		{id:3,path:"require('./IMG_7430.jpeg')"},
-		{id:4,path:"require('./IMG_7431.jpeg')"},
+		{id:1,path:"http://cdn2.tstatic.net/kaltim/foto/bank/images/reine-norwegia_20170416_110011.jpg"},
+		{id:2,path:'https://files.brightside.me/files/news/part_0/5855/223455-burano1-1000-e9f955b9fb-1484634138.jpg'},
+		{id:3,path:'https://kintamaniid-a903.kxcdn.com/wp-content/uploads/Bukit-Asah-Karangasem-1-1024x683.jpg'},
+		{id:4,path:'https://jejakbcdn-a903.kxcdn.com/wp-content/uploads/Situ-gede.jpg'},
+		{id:5,path:'http://www.wisataterindah.info/wp-content/uploads/2017/12/Sunrise-Sabana-Puncak-Pilar.jpg'}
 	]
 
 	return {
 		type: 'ALL_PICTURES',
 		payload : picture
-	}
-}
-export function addPicture(input){
-	const path = {input}
-	return {
-		type : 'ADD_PICTURE',
-		payload: path
 	}
 }

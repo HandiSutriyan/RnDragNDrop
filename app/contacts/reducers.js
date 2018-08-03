@@ -1,6 +1,7 @@
 const initialState = {
     results: [],
-    pictures:[]
+    pictures:[],
+    path:{}
 }
   
 const menuReducer = (state = initialState, action) => {
@@ -9,6 +10,8 @@ const menuReducer = (state = initialState, action) => {
             return {...state, results: action.payload}
         case 'ALL_PICTURES':
         	return {...state, pictures: action.payload}
+        case 'ADD_PICTURE':
+        	return {...state,path: action.payload}
         default:
             return state
     }
