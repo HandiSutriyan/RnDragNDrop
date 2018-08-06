@@ -25,6 +25,7 @@ const mapStateToProps = (state) => ({
 })
 
 const AppWithNavigationState = connect(mapStateToProps)(App);
+console.disableYellowBox = true;
 
 export default class Root extends Component {
   render() {

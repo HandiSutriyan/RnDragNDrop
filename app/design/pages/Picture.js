@@ -1,15 +1,15 @@
-import React,{Component} from 'react'
-import {Text, View, Image, ImageBackground,ScrollView, TouchableHighlight} from 'react-native'
-import {Button,Footer,FooterTab, Left, Right, Icon} from 'native-base'
-import { NavigationActions } from 'react-navigation'
+import React, {Component} from 'react'
+import {Text, ScrollView, Image, ImageBackground, View, FlatList} from 'react-native'
+import {Container, Content, Row, Col, Footer, FooterTab, Grid,
+		Icon, Button} from 'native-base'
 import Gestures from 'react-native-easy-gestures';
+import { NavigationActions } from 'react-navigation'
 import {connect} from 'react-redux'
 
 import {allPicture} from '../actions'
 
-
- class Picture extends Component{
-  constructor (){
+class Picture extends Component{
+	constructor (){
   super()
   this.state={
    menu_now:'',
@@ -18,7 +18,7 @@ import {allPicture} from '../actions'
    isSelected:false
   }
 }
-  componentWillMount(){
+  componentDidMount(){
     this.props.dispatch(allPicture())
   }
   handleMenu(menu){
@@ -48,104 +48,103 @@ import {allPicture} from '../actions'
         </View>
         ),
       headerStyle: {
-          backgroundColor: 'grey',
+          backgroundColor: '#34495e',
           height:50
         },
     };
   };
-     render(){
-        console.log(this.props.picture.pictures)
-        return(
-            <View  style={{flex:1,flexDirection:'column'}}>
-                
-                <View style={{flex:1}}>
-                  <ImageBackground source={require('./model.jpg')} style={{width:'100%',height:'100%'}}>
-                    <View style={{flexDirection:'row',justifyContent:'center',marginTop:'15%'}}>
-                     
-                      {this.state.isSelected ? (
-                        <Gestures
-                          style={{height:300,width:200}}
-                          scalable={{
+	render(){
+		return(
+			<Container>
+				<Row size={8}>
+					<ImageBackground source={require('./model.jpg')} style={{width:'100%',height:'100%'}}>
+						<Grid>
+							<Col size={1}>
+								<Row size={75}></Row>
+								<Row size={25} style={{flexDirection:'column',justifyContent:'flex-end'}}>
+									<Button style={{marginBottom:5,backgroundColor:'#075E54',opacity:0.7}}>
+			                          <Icon name='person'/>
+			                        </Button>
+			                        <Button success style={{marginBottom:5,backgroundColor:'#075E54',opacity:0.7}}>
+			                          <Icon name='create'/>
+			                        </Button>
+			                        <Button success style={{marginBottom:5,backgroundColor:'#075E54',opacity:0.7}}>
+			                          <Icon name='grid'/>
+			                        </Button>
+								</Row>
+							</Col>
+							<Col size={5} style={{flexDirection:'row',justifyContent:'center',marginTop:'25%'}}>
+								{this.state.isSelected ? (
+                <Gestures
+                    style={{height:300,width:200}}
+                        scalable={{
                             min: 0.1,
                             max: 7,
-                          }}
-                          onChange={(event, styles) => {
-                            this.setState({pict_styles:styles})
-                            console.log(this.state.pict_styles);
-                          }}
-                        >
-                           <Image source = {{uri:this.state.picture}} style={{height:300,width:200}}/>
-                        </Gestures>
-                        ):(
-                           <Button bordered light success style={{width:'45%',height:'auto',marginTop:'25%'}}>
-                            <Text style={{margin:10,color:'black',textAlign:'center'}}>SILAKAN PILIH GAMBAR YANG ANDA INGINKAN</Text>
-                          </Button>
-                        )}
+                    }}
+                    onChange={(event, styles) => {
+                        this.setState({pict_styles:styles})
+                        console.log(this.state.pict_styles);
+                    }}>
+                    
+                    <Image source = {{uri:this.state.picture}} style={{height:300,width:200}}/>
+                 </Gestures>):(<Button bordered light success style={{width:'45%',height:'auto',marginTop:'25%'}}>
+                            	<Text style={{margin:10,color:'black',textAlign:'center'}}>SILAKAN PILIH GAMBAR YANG ANDA INGINKAN</Text>
+                        	    </Button>
+            )}
                       
-                    </View>
-                    <View style={{backgroundColor:'transparent',height:'30%', marginTop:20,flexDirection:'row',justifyContent:'space-between'}}>
-                        <View>
-                          <Button style={{marginBottom:5,backgroundColor:'#075E54',opacity:0.7}}>
-                          <Icon name='person'/>
-                        </Button>
-                        <Button success style={{marginBottom:5,backgroundColor:'#075E54',opacity:0.7}}>
-                          <Icon name='create'/>
-                        </Button>
-                        <Button success style={{marginBottom:5,backgroundColor:'#075E54',opacity:0.7}}>
-                          <Icon name='add'/>
-                        </Button>
-                        </View>
-                        <View>
-                          <Button style={{marginBottom:5,backgroundColor:'#075E54',opacity:0.7}}>
-                          <Icon name='person'/>
-                        </Button>
-                        <Button success style={{marginBottom:5,backgroundColor:'#075E54',opacity:0.7}}>
-                          <Icon name='add'/>
-                        </Button>
-                        <Button success style={{marginBottom:5,backgroundColor:'#075E54',opacity:0.7}} 
-                        onPress={()=> this.setState({isSelected:false})}>
-                          <Icon name='trash'/>
-                        </Button>
-                        </View>
-                    </View>
-                    <View style={{height:'70%',backgroundColor:'gray',opacity:0.5,padding:10}}>
-                    <ScrollView horizontal>
-                    {this.props.picture.pictures.map((item,i)=>{
-                      const path=item.path;
-                      return(
-                          <TouchableHighlight onPress={()=>this.setState({isSelected:true,picture:path})} key={item.id}>
-                            <Image source={require('./IMG_7430.jpg')} style={{maxHeight:100,maxWidth:90,marginRight:10}}/>
-                          </TouchableHighlight>
-                        )
-                    })}
-                    </ScrollView>
-                    </View>
-                  </ImageBackground>
-                </View>
-  
-                <Footer style={{backgroundColor:'grey',flexDirection:'row',justifyContent:'flex-start',height:45}}>
-                    <FooterTab style={{backgroundColor:'transparent'}}>
-                            <Button style={{marginRight:10,marginBottom:5}} onPress={() => this.handleMenu('Gambar')}>
-                              <Text style={{color:'#fff', fontWeight:'bold', fontSize:15}}>Gambar</Text>
-                            </Button>
-                             <Button style={{marginRight:10,marginBottom:5}} onPress={() => this.handleMenu('Gradasi')}>
-                              <Text style={{color:'#fff', fontWeight:'bold', fontSize:15}}>Gradasi</Text>
-                            </Button>
-                             <Button style={{marginRight:10,marginBottom:5}} onPress={() => this.handleMenu('Warna')}>
-                              <Text style={{color:'#fff', fontWeight:'bold', fontSize:15}}>Warna</Text>
-                            </Button>
-                      </FooterTab>
-                </Footer>
-            </View>
-            
-        )
-    }
+							</Col>
+							<Col size={1}>
+								<Row size={75}></Row>
+								<Row size={25} style={{flexDirection:'column',justifyContent:'flex-end'}}>
+									<Button style={{marginBottom:5,backgroundColor:'#075E54',opacity:0.7}}>
+			                          <Icon name='create'/>
+			                        </Button>
+			                        <Button success style={{marginBottom:5,backgroundColor:'#075E54',opacity:0.7}}>
+			                          <Icon name='add'/>
+			                        </Button>
+			                        <Button success style={{marginBottom:5,backgroundColor:'#075E54',opacity:0.7}} onPress={()=>this.setState({isSelected:false,picture:''})}>
+			                          <Icon name='trash'/>
+			                        </Button>
+								</Row>
+							</Col>
+						</Grid>
+						<Row style={{backgroundColor:'gray',height:100,opacity:0.8,padding:10}}>
+							<ScrollView horizontal>
+								<FlatList
+									horizontal={true}
+									data={this.props.picture.pictures}
+									renderItem={({item})=>
+										<Button transparent onPress={()=>this.setState({isSelected:true,picture:item.path})} key={item.id} style={{height:'auto',width:'auto',marginRight:10}}>
+											<Image source={{uri:item.path}} style={{width:100,height:100}}/>
+										</Button>
+									}
+									
+								/>
+							</ScrollView>
+						</Row>		
+					</ImageBackground>
+				</Row>
+				<Row size={1} >
+					<FooterTab style={{backgroundColor:'#34495e'}}>
+						<Button transparent vertical style={{marginRight:10,marginBottom:5}}>
+		                   	<Text style={{color:'#fff',fontWeight:'bold'}}>Gambar</Text>
+		                </Button>
+		                <Button transparent vertical style={{marginRight:10,marginBottom:5}} >
+		                   	<Text style={{color:'#fff',fontWeight:'bold'}}>Gradasi</Text>
+		                </Button>
+		                <Button transparent vertical style={{marginRight:10,marginBottom:5}} >
+		                   	<Text style={{color:'#fff',fontWeight:'bold'}}>Warna</Text>
+		                </Button>
+					</FooterTab>
+				</Row>
+			</Container>
+			)
+	}
 }
 
 const mapStateToProps = (state) => {
-  return {
-    picture: state.menuReducer
-  }
+	return{
+		picture: state.menuReducer
+	}
 }
-
-export default connect(mapStateToProps)(Picture);
+export default connect(mapStateToProps)(Picture)

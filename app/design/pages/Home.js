@@ -1,24 +1,18 @@
-import React,{Component} from 'react'
-import {Text,View,Image, ImageBackground,ScrollView} from 'react-native'
-import {Button,Footer, FooterTab, Left, Right, Icon} from 'native-base'
+import React, {Component} from 'react'
+import {Text, ScrollView, Image, ImageBackground, View, Sty} from 'react-native'
+import {Container, Content, Row, Col, Footer, FooterTab, Grid,
+		Icon, Button} from 'native-base'
 import { NavigationActions } from 'react-navigation'
 import {connect} from 'react-redux'
 
 import {allMenu} from '../actions'
 
- class Home extends Component{
-  constructor (){
-  super()
-  this.state={
-   menu_now:'',
-   text:'',
-   picture:''
-  }
-}
-  componentDidMount(){
-    this.props.dispatch(allMenu())
-  }
-          static navigationOptions = ({ navigation }) => {
+class Home extends Component{
+	componentDidMount(){
+		this.props.dispatch(allMenu())
+	}
+
+	 static navigationOptions = ({ navigation }) => {
     return {
       headerLeft:(
       <View style={{flexDirection:'row',justifyContent:'flex-start'}}>
@@ -40,75 +34,77 @@ import {allMenu} from '../actions'
         </View>
         ),
       headerStyle: {
-          backgroundColor: 'grey',
+          backgroundColor: '#34495e',
           height:50
         },
     };
   };
-     render(){
-        console.log(this.props.menu.results)
-        return(
-            <View  style={{flex:1,flexDirection:'column'}}>
-                
-                <View style={{flex:1}}>
-                  <ImageBackground source={require('./model.jpg')} style={{width:'100%',height:'100%'}}>
-                    <View style={{flexDirection:'row',justifyContent:'center',marginTop:'45%'}}>
-                      <Button bordered light success style={{padding:10,width:'45%',height:'auto'}}>
-                        <Text style={{color:'black',textAlign:'center'}}>SILAKAN PILIH MENU UNTUK MENAMBAHKAN ITEM</Text>
-                      </Button>
-                    </View>
-                    <View style={{backgroundColor:'transparent',height:'30%',marginTop:'30%',flexDirection:'row',justifyContent:'space-between'}}>
-                        <View>
-                          <Button style={{marginBottom:5,backgroundColor:'#075E54',opacity:0.7}}>
-                          <Icon name='person'/>
-                        </Button>
-                        <Button success style={{marginBottom:5,backgroundColor:'#075E54',opacity:0.7}}>
-                          <Icon name='create'/>
-                        </Button>
-                        <Button success style={{marginBottom:5,backgroundColor:'#075E54',opacity:0.7}}>
-                          <Icon name='grid'/>
-                        </Button>
-                        </View>
-                        <View>
-                          <Button style={{marginBottom:5,backgroundColor:'#075E54',opacity:0.7}}>
-                          <Icon name='person'/>
-                        </Button>
-                        <Button success style={{marginBottom:5,backgroundColor:'#075E54',opacity:0.7}}>
-                          <Icon name='create'/>
-                        </Button>
-                        <Button success style={{marginBottom:5,backgroundColor:'#075E54',opacity:0.7}}>
-                          <Icon name='trash'/>
-                        </Button>
-                        </View>
-                    </View>
-                  </ImageBackground>
-                </View>
-  
-                <Footer style={{backgroundColor:'grey',flexDirection:'row',justifyContent:'flex-start',padding:10,height:70}}>
-                  <ScrollView horizontal>
-                    <FooterTab style={{backgroundColor:'transparent'}}>
-                      {this.props.menu.results.map((item,i)=>{
-                        const value=item.value;
-                        return(
-                            <Button vertical style={{marginRight:10,marginBottom:5}} key={i} onPress={()=>this.props.navigation.navigate(value)}>
-                              <Icon name={item.icon} style={{textAlign:'center',color:'#FFF'}}/>
-                              <Text style={{color:'#fff'}}>{item.name}</Text>
-                            </Button>
-                          )
-                      })}
-                      </FooterTab>
-                  </ScrollView>
-                </Footer>
-            </View>
-            
-        )
-    }
-}
+	render(){
+		return(
+			<Container>
+				<Row size={8}>
+					<ImageBackground source={require('./model.jpg')} style={{width:'100%',height:'100%'}}>
+						<Grid>
+							<Col size={1}>
+								<Row size={75}></Row>
+								<Row size={25} style={{flexDirection:'column',justifyContent:'flex-end'}}>
+									<Button style={{marginBottom:5,backgroundColor:'#075E54',opacity:0.7}}>
+			                          <Icon name='person'/>
+			                        </Button>
+			                        <Button success style={{marginBottom:5,backgroundColor:'#075E54',opacity:0.7}}>
+			                          <Icon name='create'/>
+			                        </Button>
+			                        <Button success style={{marginBottom:5,backgroundColor:'#075E54',opacity:0.7}}>
+			                          <Icon name='grid'/>
+			                        </Button>
+								</Row>
+							</Col>
+							<Col size={5} style={{flexDirection:'row',justifyContent:'center',marginTop:'25%'}}>
+								<Button bordered light success style={{padding:10,width:'45%',height:'auto'}}>
+			                        <Text style={{color:'black',textAlign:'center'}}>SILAKAN PILIH MENU UNTUK MENAMBAHKAN ITEM</Text>
+			                      </Button>
+							</Col>
+							<Col size={1}>
+								<Row size={75}></Row>
+								<Row size={25} style={{flexDirection:'column',justifyContent:'flex-end'}}>
+									<Button style={{marginBottom:5,backgroundColor:'#075E54',opacity:0.7}}>
+			                          <Icon name='person'/>
+			                        </Button>
+			                        <Button success style={{marginBottom:5,backgroundColor:'#075E54',opacity:0.7}}>
+			                          <Icon name='create'/>
+			                        </Button>
+			                        <Button success style={{marginBottom:5,backgroundColor:'#075E54',opacity:0.7}}>
+			                          <Icon name='grid'/>
+			                        </Button>
+								</Row>
+							</Col>
+						</Grid>
+					</ImageBackground>
+				</Row>
+				<Row size={1} >
+					<FooterTab style={{backgroundColor:'#34495e'}}>
+						<ScrollView horizontal>
+							{this.props.menu.results.map((item,i)=>{
+		                        const value=item.value;
+		                        return(
+		                            <Button transparent vertical style={{marginRight:10,marginBottom:5}} key={i} onPress={()=>this.props.navigation.navigate(value)}>
+		                              <Icon name={item.icon} style={{textAlign:'center',color:'#FFF'}}/>
+		                              <Text style={{color:'#fff'}}>{item.name}</Text>
+		                            </Button>
+		                          )
+		                      })}
+						</ScrollView>
+					</FooterTab>
+				</Row>
+			</Container>
+			)
+	}
+} 
 
 const mapStateToProps = (state) => {
-  return {
-    menu: state.menuReducer
-  }
+	return{
+		menu: state.menuReducer
+		}
 }
 
-export default connect(mapStateToProps)(Home);
+export default connect (mapStateToProps)(Home);
